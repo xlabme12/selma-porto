@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Start-Process *)",
+      "WebFetch(domain:portofolio-ninis.vercel.app)"
+    ]
+  }
+}

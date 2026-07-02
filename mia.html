@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroInfo — Manajemen Informasi Agribisnis</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-50: #EAF3DE;
+    --green-100: #C0DD97;
+    --green-200: #97C459;
+    --green-400: #639922;
+    --green-600: #3B6D11;
+    --green-800: #27500A;
+    --green-900: #173404;
+    --amber-50: #FAEEDA;
+    --amber-100: #FAC775;
+    --amber-200: #EF9F27;
+    --amber-400: #BA7517;
+    --teal-50: #E1F5EE;
+    --teal-100: #9FE1CB;
+    --teal-200: #5DCAA5;
+    --teal-400: #1D9E75;
+    --teal-600: #0F6E56;
+    --blue-50: #E6F1FB;
+    --blue-200: #85B7EB;
+    --blue-400: #378ADD;
+    --blue-600: #185FA5;
+    --gray-50: #F7F6F2;
+    --gray-100: #EDECE6;
+    --gray-200: #D3D1C7;
+    --gray-400: #888780;
+    --gray-600: #5F5E5A;
+    --gray-800: #2C2C2A;
+    --gray-900: #1A1A18;
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: #F4F7F0;
+    color: var(--gray-800);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244,247,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(99,153,34,0.15);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--green-400);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-icon svg { width: 20px; height: 20px; fill: white; }
+  .logo-text {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--green-800);
+    letter-spacing: -0.3px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-600);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-600); }
+  .nav-links a.active { color: var(--green-400); }
+  .btn-nav {
+    background: var(--green-400);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-nav:hover { background: var(--green-600); }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green-600);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-400); }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--gray-900);
+    letter-spacing: -0.5px;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green-400);
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; gap: 12px; align-items: center; }
+  .btn-primary {
+    background: var(--green-400);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--green-600); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--gray-400); color: var(--gray-800); }
+
+  /* hero visual */
+  .hero-visual {
+    position: relative;
+  }
+  .hero-card-main {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-100);
+    padding: 1.5rem;
+    box-shadow: 0 4px 32px rgba(59,109,17,0.08);
+  }
+  .hc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .hc-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-800);
+  }
+  .hc-badge {
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--green-50);
+    color: var(--green-600);
+    border-radius: 100px;
+    padding: 3px 10px;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  .stat-box {
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--green-600);
+    display: block;
+    line-height: 1.1;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--gray-400);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .sector-list { display: flex; flex-direction: column; gap: 8px; }
+  .sector-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--gray-50);
+  }
+  .sector-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .sector-info { flex: 1; }
+  .sector-name { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .sector-sub { font-size: 11px; color: var(--gray-400); }
+  .sector-tag {
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 2px 8px;
+  }
+  /* floating cards */
+  .float-card {
+    position: absolute;
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-100);
+    padding: 12px 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    font-size: 12px;
+  }
+  .float-card-top {
+    top: -20px;
+    right: -24px;
+    width: 150px;
+  }
+  .float-card-bot {
+    bottom: -16px;
+    left: -20px;
+    width: 160px;
+  }
+  .fc-label { color: var(--gray-400); font-weight: 500; margin-bottom: 3px; font-size: 11px; }
+  .fc-val { font-weight: 700; color: var(--green-600); font-size: 18px; font-family: var(--font-display); }
+  .fc-sub { color: var(--gray-400); font-size: 10px; }
+  .fc-trend { color: var(--teal-400); font-weight: 600; font-size: 11px; }
+
+  /* ===== SECTORS ===== */
+  .section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green-400);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.3px;
+  }
+  .section-title em { font-style: italic; color: var(--green-400); }
+  .section-desc { font-size: 14px; color: var(--gray-600); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; }
+
+  .sector-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .sector-card {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-100);
+    padding: 1.5rem;
+    transition: all 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .sector-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+  }
+  .sector-card.pertanian::before { background: var(--green-400); }
+  .sector-card.peternakan::before { background: var(--amber-200); }
+  .sector-card.perikanan::before { background: var(--blue-400); }
+  .sector-card.hortikultura::before { background: var(--teal-400); }
+  .sector-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-3px); }
+  .sc-emoji { font-size: 2rem; margin-bottom: 1rem; }
+  .sc-title { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 0.4rem; }
+  .sc-desc { font-size: 13px; color: var(--gray-400); line-height: 1.6; margin-bottom: 1rem; }
+  .sc-count { font-size: 12px; font-weight: 600; }
+  .pertanian .sc-count { color: var(--green-400); }
+  .peternakan .sc-count { color: var(--amber-400); }
+  .perikanan .sc-count { color: var(--blue-600); }
+  .hortikultura .sc-count { color: var(--teal-600); }
+
+  /* ===== FEATURED ARTICLE ===== */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  .article-main {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-100);
+    overflow: hidden;
+  }
+  .article-img {
+    height: 220px;
+    background: linear-gradient(135deg, var(--green-50), var(--teal-50));
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .article-img-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(99,153,34,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(29,158,117,0.1) 0%, transparent 50%);
+  }
+  .article-img-icon { font-size: 5rem; position: relative; z-index: 1; }
+  .article-body { padding: 1.5rem; }
+  .article-tags { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 100px;
+    padding: 3px 10px;
+  }
+  .tag-green { background: var(--green-50); color: var(--green-600); }
+  .tag-teal { background: var(--teal-50); color: var(--teal-600); }
+  .tag-amber { background: var(--amber-50); color: var(--amber-400); }
+  .article-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+  }
+  .article-excerpt { font-size: 13px; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.25rem; }
+  .article-meta { display: flex; align-items: center; justify-content: space-between; }
+  .meta-author { display: flex; align-items: center; gap: 10px; }
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--green-100);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green-800);
+  }
+  .meta-name { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .meta-date { font-size: 11px; color: var(--gray-400); }
+  .read-more {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green-400);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+
+  /* side articles */
+  .article-side { display: flex; flex-direction: column; gap: 16px; }
+  .article-small {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-100);
+    padding: 1.25rem;
+    flex: 1;
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .article-small:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .as-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .as-icon { font-size: 1.5rem; }
+  .as-title { font-size: 14px; font-weight: 600; color: var(--gray-800); line-height: 1.4; margin-bottom: 0.5rem; }
+  .as-desc { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+
+  /* ===== DATA DASHBOARD ===== */
+  .dash-bg {
+    background: var(--green-800);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .dash-bg::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .dash-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .dash-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: var(--green-100);
+    margin-bottom: 0.5rem;
+  }
+  .dash-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+  .dash-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 2.5rem; }
+  .dash-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative; z-index: 1;
+  }
+  .dash-stat {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+  .ds-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .ds-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .ds-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem; }
+  .ds-trend {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green-100);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ===== QUICK LINKS / TOOLS ===== */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .tool-card {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-100);
+    padding: 1.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .tool-card:hover { border-color: var(--green-200); box-shadow: 0 4px 20px rgba(59,109,17,0.08); }
+  .tool-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .tool-info { flex: 1; }
+  .tool-name { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 0.3rem; }
+  .tool-desc { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--gray-900);
+    color: white;
+    margin-top: 5rem;
+    padding: 3rem 2rem 2rem;
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+  }
+  .footer-brand .logo-text { color: var(--green-100); }
+  .footer-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: 0.75rem; }
+  .footer-col h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul a { text-decoration: none; font-size: 13px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--green-100); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-badge {
+    font-size: 11px;
+    background: rgba(99,153,34,0.2);
+    color: var(--green-100);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-weight: 600;
+  }
+
+  /* ===== SEPARATOR ===== */
+  .section-sep {
+    border: none;
+    border-top: 1px solid var(--gray-100);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ===== SEARCH BAR ===== */
+  .search-wrap {
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    max-width: 600px;
+    margin: 0 auto 4rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .search-icon { font-size: 18px; color: var(--gray-400); }
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-800);
+    background: transparent;
+  }
+  .search-input::placeholder { color: var(--gray-400); }
+  .search-btn {
+    background: var(--green-400);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    </div>
+    <span class="logo-text">AgroInfo</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Beranda</a></li>
+    <li><a href="#">Pertanian</a></li>
+    <li><a href="#">Peternakan</a></li>
+    <li><a href="#">Perikanan</a></li>
+    <li><a href="#">Hortikultura</a></li>
+    <li><a href="#">Statistik</a></li>
+  </ul>
+  <button class="btn-nav">Masuk</button>
+</nav>
+
+<!-- HERO -->
+<main>
+<section style="background: linear-gradient(180deg, #EEF4E6 0%, #F4F7F0 100%); border-bottom: 1px solid var(--gray-100);">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <div class="dot"></div>
+        Platform Informasi Agribisnis
+      </div>
+      <h1>Satu portal untuk seluruh sektor <em>agribisnis</em> Indonesia</h1>
+      <p class="hero-desc">Data, artikel, dan analisis terkini mencakup pertanian, peternakan, perikanan, dan hortikultura — dikurasi untuk petani, peneliti, dan pelaku usaha agribisnis.</p>
+      <div class="hero-actions">
+        <button class="btn-primary">
+          Jelajahi Data
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-secondary">Lihat Artikel Terbaru</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <!-- floating card top right -->
+      <div class="float-card float-card-top">
+        <div class="fc-label">Ekspor Pertanian</div>
+        <div class="fc-val">Rp 847 T</div>
+        <div class="fc-trend">↑ 12.4% tahun ini</div>
+      </div>
+
+      <div class="hero-card-main">
+        <div class="hc-header">
+          <span class="hc-title">Ringkasan Sektor</span>
+          <span class="hc-badge">Live 2025</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">4</span>
+            <span class="stat-label">Sektor</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">1.2K</span>
+            <span class="stat-label">Artikel</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">38K</span>
+            <span class="stat-label">Pengguna</span>
+          </div>
+        </div>
+        <div class="sector-list">
+          <div class="sector-item">
+            <div class="sector-icon" style="background:#EAF3DE;">🌾</div>
+            <div class="sector-info">
+              <div class="sector-name">Pertanian</div>
+              <div class="sector-sub">342 artikel · 12 komoditas</div>
+            </div>
+            <span class="sector-tag" style="background:#EAF3DE;color:#3B6D11;">Aktif</span>
+          </div>
+          <div class="sector-item">
+            <div class="sector-icon" style="background:#FAEEDA;">🐄</div>
+            <div class="sector-info">
+              <div class="sector-name">Peternakan</div>
+              <div class="sector-sub">218 artikel · 8 komoditas</div>
+            </div>
+            <span class="sector-tag" style="background:#FAEEDA;color:#854F0B;">Aktif</span>
+          </div>
+          <div class="sector-item">
+            <div class="sector-icon" style="background:#E6F1FB;">🐟</div>
+            <div class="sector-info">
+              <div class="sector-name">Perikanan</div>
+              <div class="sector-sub">189 artikel · 15 spesies</div>
+            </div>
+            <span class="sector-tag" style="background:#E6F1FB;color:#185FA5;">Aktif</span>
+          </div>
+          <div class="sector-item">
+            <div class="sector-icon" style="background:#E1F5EE;">🌿</div>
+            <div class="sector-info">
+              <div class="sector-name">Hortikultura</div>
+              <div class="sector-sub">267 artikel · 24 varietas</div>
+            </div>
+            <span class="sector-tag" style="background:#E1F5EE;color:#0F6E56;">Aktif</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- floating card bottom left -->
+      <div class="float-card float-card-bot">
+        <div class="fc-label">Petani terdaftar</div>
+        <div class="fc-val">38.241</div>
+        <div class="fc-sub">↑ 1.230 pengguna baru bulan ini</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section style="padding: 3rem 2rem 0;">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" placeholder="Cari komoditas, artikel, atau data statistik…" />
+    <button class="search-btn">Cari</button>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="section">
+  <div class="section-eyebrow">Sektor Unggulan</div>
+  <h2 class="section-title">Empat pilar <em>agribisnis</em> nasional</h2>
+  <p class="section-desc">Informasi terstruktur untuk setiap sektor — dari data produksi hingga teknik budidaya terkini.</p>
+
+  <div class="sector-grid">
+    <div class="sector-card pertanian">
+      <div class="sc-emoji">🌾</div>
+      <div class="sc-title">Pertanian</div>
+      <div class="sc-desc">Padi, jagung, kedelai, dan komoditas palawija. Meliputi teknik budidaya, pengendalian hama, dan data panen nasional.</div>
+      <div class="sc-count">342 artikel →</div>
+    </div>
+    <div class="sector-card peternakan">
+      <div class="sc-emoji">🐄</div>
+      <div class="sc-title">Peternakan</div>
+      <div class="sc-desc">Sapi, ayam, kambing, dan unggas lainnya. Mencakup nutrisi, kesehatan hewan, dan manajemen kandang.</div>
+      <div class="sc-count">218 artikel →</div>
+    </div>
+    <div class="sector-card perikanan">
+      <div class="sc-emoji">🐟</div>
+      <div class="sc-title">Perikanan</div>
+      <div class="sc-desc">Budidaya ikan air tawar dan laut, tambak udang, rumput laut, serta data tangkap nasional.</div>
+      <div class="sc-count">189 artikel →</div>
+    </div>
+    <div class="sector-card hortikultura">
+      <div class="sc-emoji">🌿</div>
+      <div class="sc-title">Hortikultura</div>
+      <div class="sc-desc">Sayuran, buah-buahan, tanaman hias, dan rempah. Data varietas unggul dan teknik pertanian modern.</div>
+      <div class="sc-count">267 artikel →</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ARTICLES -->
+<section class="section">
+  <div class="section-eyebrow">Artikel Pilihan</div>
+  <h2 class="section-title">Informasi <em>terkini</em> dari lapangan</h2>
+  <p class="section-desc">Artikel dikurasi dari pakar dan praktisi agribisnis Indonesia.</p>
+
+  <div class="featured-grid">
+    <div class="article-main">
+      <div class="article-img">
+        <div class="article-img-pattern"></div>
+        <div class="article-img-icon">🌾</div>
+      </div>
+      <div class="article-body">
+        <div class="article-tags">
+          <span class="tag tag-green">Pertanian</span>
+          <span class="tag tag-teal">Teknologi</span>
+        </div>
+        <h3 class="article-title">Penerapan Smart Farming untuk Meningkatkan Produktivitas Padi di Lahan Marginal</h3>
+        <p class="article-excerpt">Teknologi sensor tanah dan drone monitoring kini mulai diterapkan petani di Jawa Tengah. Hasilnya menunjukkan peningkatan hasil panen rata-rata 28% dibanding metode konvensional, sekaligus mengurangi penggunaan pupuk kimia secara signifikan.</p>
+        <div class="article-meta">
+          <div class="meta-author">
+            <div class="avatar">DS</div>
+            <div>
+              <div class="meta-name">Dr. Dian Sari</div>
+              <div class="meta-date">14 Juni 2025 · 8 menit baca</div>
+            </div>
+          </div>
+          <a href="#" class="read-more">Baca selengkapnya →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-side">
+      <div class="article-small">
+        <div class="as-header">
+          <span class="as-icon">🐟</span>
+          <span class="tag tag-teal">Perikanan</span>
+        </div>
+        <div class="as-title">Budidaya Udang Vaname dengan Sistem Bioflok: Efisiensi Air hingga 70%</div>
+        <div class="as-desc">Teknologi bioflok mengubah cara petambak mengelola kualitas air dan menekan biaya pakan secara drastis.</div>
+      </div>
+      <div class="article-small">
+        <div class="as-header">
+          <span class="as-icon">🌿</span>
+          <span class="tag tag-green">Hortikultura</span>
+        </div>
+        <div class="as-title">Tren Ekspor Buah Tropis Indonesia ke Pasar Asia Timur 2025</div>
+        <div class="as-desc">Mangga gedong gincu dan manggis menjadi komoditas unggulan dengan pertumbuhan ekspor 34% YoY.</div>
+      </div>
+      <div class="article-small">
+        <div class="as-header">
+          <span class="as-icon">🐄</span>
+          <span class="tag tag-amber">Peternakan</span>
+        </div>
+        <div class="as-title">Vaksinasi PMK dan Pemulihan Populasi Sapi Nasional Pasca-Wabah</div>
+        <div class="as-desc">Update terkini program vaksinasi dan dampaknya terhadap harga daging sapi di pasar domestik.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS DASHBOARD -->
+<section style="padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto;">
+  <div class="dash-bg">
+    <div class="dash-eyebrow">Statistik Nasional</div>
+    <h2 class="dash-title">Data agribisnis Indonesia dalam angka</h2>
+    <p class="dash-sub">Diperbarui setiap kuartal dari BPS dan Kementerian Pertanian RI</p>
+    <div class="dash-stats">
+      <div class="dash-stat">
+        <div class="ds-icon">🌾</div>
+        <div class="ds-num">54,6 Jt</div>
+        <div class="ds-label">Ton produksi padi (2024)</div>
+        <div class="ds-trend">↑ 3.2% vs tahun lalu</div>
+      </div>
+      <div class="dash-stat">
+        <div class="ds-icon">🐄</div>
+        <div class="ds-num">18,2 Jt</div>
+        <div class="ds-label">Ekor populasi sapi</div>
+        <div class="ds-trend">↑ 1.8% vs tahun lalu</div>
+      </div>
+      <div class="dash-stat">
+        <div class="ds-icon">🐟</div>
+        <div class="ds-num">23,8 Jt</div>
+        <div class="ds-label">Ton total produksi ikan</div>
+        <div class="ds-trend">↑ 5.1% vs tahun lalu</div>
+      </div>
+      <div class="dash-stat">
+        <div class="ds-icon">🌿</div>
+        <div class="ds-num">Rp 847 T</div>
+        <div class="ds-label">Nilai ekspor hortikultura</div>
+        <div class="ds-trend">↑ 12.4% vs tahun lalu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- TOOLS -->
+<section class="section">
+  <div class="section-eyebrow">Fitur Platform</div>
+  <h2 class="section-title">Alat bantu untuk <em>petani</em> dan pelaku usaha</h2>
+  <p class="section-desc">Layanan digital terintegrasi yang dirancang sesuai kebutuhan pengguna agribisnis.</p>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-icon" style="background:#EAF3DE;">📊</div>
+      <div class="tool-info">
+        <div class="tool-name">Kalkulator Harga Komoditas</div>
+        <div class="tool-desc">Estimasi harga jual dan analisis margin keuntungan berdasarkan data pasar terkini.</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:#E1F5EE;">🗺️</div>
+      <div class="tool-info">
+        <div class="tool-name">Peta Sentra Produksi</div>
+        <div class="tool-desc">Visualisasi distribusi sentra pertanian, peternakan, dan perikanan di seluruh Indonesia.</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:#E6F1FB;">🌤️</div>
+      <div class="tool-info">
+        <div class="tool-name">Info Cuaca & Musim Tanam</div>
+        <div class="tool-desc">Prakiraan cuaca dan kalender tanam untuk membantu perencanaan musim budidaya.</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:#FAEEDA;">📋</div>
+      <div class="tool-info">
+        <div class="tool-name">Panduan Budidaya</div>
+        <div class="tool-desc">Prosedur standar operasional dari benih hingga panen untuk berbagai komoditas unggulan.</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:#EAF3DE;">📈</div>
+      <div class="tool-info">
+        <div class="tool-name">Tren Pasar Mingguan</div>
+        <div class="tool-desc">Grafik pergerakan harga komoditas di pasar induk nasional setiap minggu.</div>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon" style="background:#E1F5EE;">💬</div>
+      <div class="tool-info">
+        <div class="tool-name">Forum Diskusi Petani</div>
+        <div class="tool-desc">Ruang tanya jawab dan berbagi pengalaman antara petani, peternak, dan nelayan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <span class="logo-text">AgroInfo</span>
+        </div>
+        <p class="footer-desc">Platform terintegrasi manajemen informasi agribisnis — pertanian, peternakan, perikanan, dan hortikultura dalam satu portal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sektor</h4>
+        <ul>
+          <li><a href="#">Pertanian</a></li>
+          <li><a href="#">Peternakan</a></li>
+          <li><a href="#">Perikanan</a></li>
+          <li><a href="#">Hortikultura</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sumber Data</h4>
+        <ul>
+          <li><a href="#">BPS Indonesia</a></li>
+          <li><a href="#">Kementerian Pertanian</a></li>
+          <li><a href="#">KKP RI</a></li>
+          <li><a href="#">BMKG</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#">Tentang AgroInfo</a></li>
+          <li><a href="#">Kontak</a></li>
+          <li><a href="#">API Data</a></li>
+          <li><a href="#">Kebijakan Privasi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 AgroInfo — Manajemen Informasi Agribisnis</span>
+      <span class="footer-badge">Proyek Portofolio</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
